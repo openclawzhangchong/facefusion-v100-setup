@@ -1,0 +1,20 @@
+# 实测锁定的版本（本机 V100 Volta/sm_70 + Windows 10 + CUDA 12 驱动 573.96）
+# 全部为 PyPI 包，可原样交给 uv pip install
+#
+# [核心锁定] Volta 兼容性（违反即报 no kernel image is available）
+onnxruntime-gpu==1.20.2
+nvidia-cudnn-cu12==9.3.0.75
+#
+# [NVIDIA 运行库] onnxruntime-gpu wheel 不自带，必须显式安装并加入 PATH
+nvidia-cublas-cu12==12.9.2.10
+nvidia-cuda-nvrtc-cu12==12.9.86
+nvidia-cuda-runtime-cu12==12.9.79
+nvidia-cufft-cu12==11.4.1.4
+nvidia-nvjitlink-cu12==12.9.86
+#
+# [说明]
+# - FaceFusion 上游 requirements.txt 固定的其余依赖（gradio/numpy/opencv 等）
+#   与以上无冲突，照装即可；注意它还会装 onnxruntime==1.31.0（CPU 版），
+#   务必在其之后再装 onnxruntime-gpu==1.20.2（覆盖同名 capi 文件，顺序不能反）。
+# - onnxruntime-gpu 1.20.2 要求 cuDNN 9.x；9.3.0.75 / 9.5.1.17 均实测可用，
+#   cuDNN 9.28+ 在 Volta 上卷积直接失败（CUDNN_FE failure 11）。
