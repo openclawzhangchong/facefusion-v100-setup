@@ -1,0 +1,7 @@
+{
+  "uis": {
+    "model_dropdown": "换脸模型",
+    "pixel_boost_dropdown": "换脸像素增强",
+    "weight_slider": "换脸权重"
+  }
+}

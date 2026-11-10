@@ -51,6 +51,10 @@ powershell -ExecutionPolicy Bypass -File .\verify.ps1
 
 双击 `D:\FaceFusion\StartFaceFusion.bat` → 浏览器打开 `http://127.0.0.1:7860`。
 
+**界面中文化**（install.ps1 已自动部署）：`scripts/zh_ui/sitecustomize.py`
+作为运行时补丁放进 venv 的 site-packages，中文优先、缺失词条自动回退英文，
+不改上游文件。补丁若异常会写入 `.venv\Lib\site-packages\sitecustomize_err.log`。
+
 换脸要点（详细见 FaceFusion 仓库内的 `使用说明.md`，安装脚本会生成）：
 
 - SOURCE 传目标人物照片（选头部角度与视频里相近的），TARGET 传口播视频
@@ -73,7 +77,8 @@ powershell -ExecutionPolicy Bypass -File .\verify.ps1
     ├── dl_examples.py         # 官方示例素材下载（冒烟测试用）
     ├── test_cuda.py           # onnxruntime CUDA EP 基础探活
     ├── test_cudnn.py          # 真实人脸检测模型推理验证
-    └── patch_facefusion_ini.py# facefusion.ini 写入 cuda + 镜像源
+    ├── patch_facefusion_ini.py# facefusion.ini 写入 cuda + 镜像源
+    └── zh_ui/                 # 界面中文化：sitecustomize 运行时补丁 + zh_*.json 语言包
 ```
 
 ## 经验总结（一段话版）

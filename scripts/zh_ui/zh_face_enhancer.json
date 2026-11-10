@@ -1,0 +1,7 @@
+{
+  "uis": {
+    "model_dropdown": "脸部修复模型",
+    "blend_slider": "脸部修复混合度",
+    "weight_slider": "脸部修复强度"
+  }
+}

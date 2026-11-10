@@ -110,3 +110,21 @@ Error loading "onnxruntime_providers_cuda.dll" which depends on "cublasLt64_12.d
 - C 盘空间小（<25GB）→ 一切装 D 盘。
 - 内存 16 GB 刚够，重度任务前关闭吃内存的程序。
 - ffmpeg 用 winget 装（`Gyan.FFmpeg`），装完的命令行别名在 `%LOCALAPPDATA%\Microsoft\WinGet\Links`，**已开的进程 PATH 里没有它**，新 shell/脚本里要显式加入。
+
+---
+
+## 10. sitecustomize 里 import facefusion 失败（界面中文化补丁静默失效）
+
+【症状 / 错误签名】
+`sitecustomize` 已随解释器加载（`'sitecustomize' in sys.modules` 为 `True`），
+但补丁未生效（`translator.get` 仍返回英文），且 `except: pass` 吞掉了真实异常。
+
+【原因】sitecustomize 在 **site 初始化阶段**执行；Python 3.11+ 在 site 初始化
+**之后**才把脚本目录/cwd 加入 sys.path。所以即使启动命令的 cwd 就是
+FaceFusion 根目录，此刻 `import facefusion` 也必然 `ImportError`。
+
+【解法】不要依赖 cwd：sitecustomize 固定部署在
+`<FaceFusion根>\.venv\Lib\site-packages\`，从 `__file__` 向上三级就是
+FaceFusion 根目录，自行 `sys.path.insert` 后再 import。
+另外：补丁的异常处理务必把 `traceback.format_exc()` 写入日志文件，
+不要静默 pass（本仓库的 sitecustomize.py 会写 sitecustomize_err.log）。

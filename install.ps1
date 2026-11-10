@@ -77,8 +77,12 @@ $env:NVIDIA_DLL_PATH = Join-Path $InstallRoot '.venv\Lib\site-packages\nvidia'
 & $VenvPython (Join-Path $RepoRoot 'scripts\dl_models.py') (Join-Path $InstallRoot '.assets\models')
 if ($LASTEXITCODE -ne 0) { throw '模型下载失败，请重跑本脚本（幂等，已完成的会跳过）' }
 
-Step '7/9 写入默认配置（CUDA + 镜像源）'
+Step '7/9 写入默认配置（CUDA + 镜像源）+ 界面中文化'
 & $VenvPython (Join-Path $RepoRoot 'scripts\patch_facefusion_ini.py') (Join-Path $InstallRoot 'facefusion.ini')
+# 界面中文化：sitecustomize 运行时补丁（中文优先、缺失回退英文，不改上游文件）
+$spDir = Join-Path $InstallRoot '.venv\Lib\site-packages'
+Copy-Item (Join-Path $RepoRoot 'scripts\zh_ui\*.*') $spDir -Force
+Ok 'facefusion.ini 已配置，中文界面已部署'
 
 Step '8/9 生成启动器 StartFaceFusion.bat'
 $batContent = @"
