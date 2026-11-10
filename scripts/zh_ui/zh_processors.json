@@ -1,0 +1,77 @@
+{
+  "facefusion.processors.modules.age_modifier": {
+    "uis": {
+      "model_dropdown": "年龄修改模型",
+      "direction_slider": "年龄修改方向"
+    }
+  },
+  "facefusion.processors.modules.background_remover": {
+    "uis": {
+      "model_dropdown": "背景移除模型",
+      "fill_color_red_number": "填充色 - 红",
+      "fill_color_green_number": "填充色 - 绿",
+      "fill_color_blue_number": "填充色 - 蓝",
+      "fill_color_alpha_number": "填充色 - 透明度",
+      "despill_color_red_number": "去溢出色 - 红",
+      "despill_color_green_number": "去溢出色 - 绿",
+      "despill_color_blue_number": "去溢出色 - 蓝",
+      "despill_color_alpha_number": "去溢出色 - 透明度"
+    }
+  },
+  "facefusion.processors.modules.deep_swapper": {
+    "uis": {
+      "model_dropdown": "深度换脸模型（名人脸）",
+      "morph_slider": "深度换脸融合度"
+    }
+  },
+  "facefusion.processors.modules.expression_restorer": {
+    "uis": {
+      "model_dropdown": "表情还原模型",
+      "factor_slider": "表情还原强度",
+      "areas_checkbox_group": "表情还原区域"
+    }
+  },
+  "facefusion.processors.modules.face_debugger": {
+    "uis": {
+      "items_checkbox_group": "人脸调试显示项（开发用）"
+    }
+  },
+  "facefusion.processors.modules.face_editor": {
+    "uis": {
+      "model_dropdown": "人脸编辑模型",
+      "eyebrow_direction_slider": "眉毛方向",
+      "eye_gaze_horizontal_slider": "眼神水平方向",
+      "eye_gaze_vertical_slider": "眼神垂直方向",
+      "eye_open_ratio_slider": "睁眼程度",
+      "lip_open_ratio_slider": "张嘴程度",
+      "mouth_grim_slider": "嘴型 - 撇嘴",
+      "mouth_pout_slider": "嘴型 - 嘟嘴",
+      "mouth_purse_slider": "嘴型 - 抿嘴",
+      "mouth_smile_slider": "嘴型 - 微笑",
+      "mouth_position_horizontal_slider": "嘴部水平位置",
+      "mouth_position_vertical_slider": "嘴部垂直位置",
+      "head_pitch_slider": "头部俯仰（点头）",
+      "head_yaw_slider": "头部偏转（摇头）",
+      "head_roll_slider": "头部倾斜（歪头）"
+    }
+  },
+  "facefusion.processors.modules.frame_colorizer": {
+    "uis": {
+      "model_dropdown": "画面上色模型",
+      "size_dropdown": "画面上色尺寸",
+      "blend_slider": "画面上色混合度"
+    }
+  },
+  "facefusion.processors.modules.frame_enhancer": {
+    "uis": {
+      "model_dropdown": "画面增强模型（超分辨率）",
+      "blend_slider": "画面增强混合度"
+    }
+  },
+  "facefusion.processors.modules.lip_syncer": {
+    "uis": {
+      "model_dropdown": "口型同步模型",
+      "weight_slider": "口型同步强度"
+    }
+  }
+}

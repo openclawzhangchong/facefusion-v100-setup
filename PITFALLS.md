@@ -128,3 +128,24 @@ FaceFusion 根目录，此刻 `import facefusion` 也必然 `ImportError`。
 FaceFusion 根目录，自行 `sys.path.insert` 后再 import。
 另外：补丁的异常处理务必把 `traceback.format_exc()` 写入日志文件，
 不要静默 pass（本仓库的 sitecustomize.py 会写 sitecustomize_err.log）。
+
+---
+
+## 11. 补丁包装 gradio 组件构造器后，label/choices 从界面消失
+
+【症状 / 错误签名】
+给 `gradio.Dropdown/CheckboxGroup/Radio.__init__` 打补丁（例如把 choices
+包装成 (中文标签, 值) 二元组）后，界面里**带选项的组件整块变空**：
+`/config` 里这些组件没有 `label`、没有 `choices`，只有 `name`/`proxy_url`。
+滑块、按钮等未打补丁的组件正常。
+
+【原因】gradio 的 `Block.get_config()`（blocks.py）用
+`inspect.signature(self.__class__.__init__)` 的**参数名**决定把哪些实例属性
+序列化进 /config。包装函数若定义成 `def patched(self, *args, **kwargs)`，
+签名只剩 args/kwargs，gradio 认不出 label/choices 等参数名 → 全部不序列化。
+
+【解法】包装函数必须用 `@functools.wraps(original_init)` 装饰——
+`inspect.signature` 默认顺着 `__wrapped__` 还原真实签名，get_config 即恢复。
+（另注意循环里给多个类打补丁时要用工厂函数绑定各自的 original_init，
+否则闭包共享变量会让所有类调到最后一个类的构造器，报
+`super(type, obj): obj must be an instance or subtype of type`。）

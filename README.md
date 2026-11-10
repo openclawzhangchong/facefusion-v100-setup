@@ -53,7 +53,9 @@ powershell -ExecutionPolicy Bypass -File .\verify.ps1
 
 **界面中文化**（install.ps1 已自动部署）：`scripts/zh_ui/sitecustomize.py`
 作为运行时补丁放进 venv 的 site-packages，中文优先、缺失词条自动回退英文，
-不改上游文件。补丁若异常会写入 `.venv\Lib\site-packages\sitecustomize_err.log`。
+不改上游文件。所有下拉框/复选框的选项也显示中文（如「换脸」「背景移除」），
+底层传给程序的仍是英文原值，功能零影响；模型名等专有名词保持原文。
+补丁若异常会写入 `.venv\Lib\site-packages\sitecustomize_err.log`。
 
 换脸要点（详细见 FaceFusion 仓库内的 `使用说明.md`，安装脚本会生成）：
 
